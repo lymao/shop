@@ -1,9 +1,10 @@
-﻿using Model.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Model.Models;
 using System.Data.Entity;
 
 namespace Data
 {
-    public class ShopDbContext : DbContext
+    public class ShopDbContext : IdentityDbContext<ApplicationUser>
     {
         public ShopDbContext() : base("ShopConnection")
         {
@@ -38,7 +39,8 @@ namespace Data
 
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }
