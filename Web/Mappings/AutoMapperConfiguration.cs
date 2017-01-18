@@ -24,10 +24,14 @@ namespace Web.Mappings
 
                 cfg.CreateMap<Tag, TagViewModel>();
 
+                cfg.CreateMap<ProductCategory, ProductCategoryViewModel>();
+
             });
+            //For version of Automapper <5.0
             //Mapper.CreateMap<PostCategory, PostCategoryViewModel>();
             //Mapper.CreateMap<PostCategory, PostCategoryViewModel>();
             //Mapper.CreateMap<Tag, TagViewModel>();
+
         }
     }
 }
