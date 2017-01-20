@@ -23,12 +23,12 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Tên danh mục</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" ng-maxlength="3" required name="name" ng-model="productCategory.Name">
+                        <input type="text" class="form-control" ng-change="GetSeoTitle()" ng-maxlength="10" required name="name" ng-model="productCategory.Name">
                         <!--Nếu sử dụng frmAddProductCategory.name.$invalid thông báo lỗi sẽ hiện cả 2 dòng thông báo khi cả hai bị lỗi-->
                         <!--<span ng-show="frmAddProductCategory.name.$invalid" class="has-error">Yêu cầu nhập tên danh mục</span>-->
 
                         <span ng-show="frmAddProductCategory.name.$error.required" class="has-error">Yêu cầu nhập tên danh mục</span>
-                        <span ng-show="frmAddProductCategory.name.$error.maxlength" class="has-error">Tên danh mục chỉ được 3 ký tự</span>
+                        <span ng-show="frmAddProductCategory.name.$error.maxlength" class="has-error">Tên danh mục chỉ được 10 ký tự</span>
                     </div>
                 </div>
                 <div class="form-group">

@@ -124,5 +124,21 @@ namespace Web.Api
             });
         }
 
+        [Route("delete")]
+        [HttpDelete]
+        public HttpResponseMessage Delete(HttpRequestMessage request, int id)
+        {
+            return CreateHttpResponse(request, () =>
+             {
+                 HttpResponseMessage response = null;
+                 var oldProductCategory = _productCategoryService.Delete(id);
+                 _productCategoryService.Save();
+
+                 var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(oldProductCategory);
+                 response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                 return response;
+             });
+        }
+
     }
 }
