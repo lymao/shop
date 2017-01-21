@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 using Web.Infrastructure.Core;
 using Web.Infrastructure.Extensions;
 using Web.Models;
@@ -138,6 +139,25 @@ namespace Web.Api
                  response = request.CreateResponse(HttpStatusCode.OK, responseData);
                  return response;
              });
+        }
+
+        [Route("deletemulti")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedProductCategories)// <= truyen vao mot chuoi
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                var listProductCategory = new JavaScriptSerializer().Deserialize<List<int>>(checkedProductCategories);// Deserializer chuỗi ra thành list<int>
+                foreach(var item in listProductCategory)
+                {
+                    _productCategoryService.Delete(item);
+                }
+                _productCategoryService.Save();
+
+                response = request.CreateResponse(HttpStatusCode.OK, listProductCategory.Count);
+                return response;
+            });
         }
 
     }

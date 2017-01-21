@@ -3,9 +3,9 @@
 (function (app) {
     app.controller('productCategoryListController', productCategoryListController);
 
-    productCategoryListController.$inject = ['$scope', 'apiService', 'notificationService','$ngBootbox'];
+    productCategoryListController.$inject = ['$scope', 'apiService', 'notificationService','$ngBootbox','$filter'];
 
-    function productCategoryListController($scope, apiService, notificationService, $ngBootbox) {
+    function productCategoryListController($scope, apiService, notificationService, $ngBootbox, $filter) {
         $scope.productCategories = [];
         $scope.page = 0;
         $scope.pagesCount = 0;
@@ -23,7 +23,7 @@
                 params: {
                     keyword: $scope.keyword,
                     page: page,
-                    pageSize: 2
+                    pageSize: 20
                 }
             }
             apiService.get('/api/productcategory/getall', config, function (result) {
@@ -41,9 +41,9 @@
                 console.log('Load productcategory failed.');
             });
         }
+        $scope.getProductCategories();
 
         $scope.deleteProductCategory = deleteProductCategory;
-
         function deleteProductCategory(id) {
             $ngBootbox.confirm('Bạn có chắc muốn xóa?').then(function () {
                 var config = {
@@ -59,6 +59,55 @@
                 })
             });
         }
-        $scope.getProductCategories();
+
+        //Xóa nhiều bản ghi
+        $scope.deleteMultiple = deleteMultiple;
+        function deleteMultiple() {
+            var listId = [];
+            $.each($scope.selected, function (i, item) {
+                listId.push(item.ID);
+            });
+            var config = {
+                params: {
+                    checkedProductCategories: JSON.stringify(listId)
+                }
+            }
+            apiService.del('api/productcategory/deletemulti', config, function (result) {
+                notificationService.displaySuccess('Đã xóa ' + result.data + ' bản ghi.');
+                search();
+            }, function (error) {
+                notificationService.displayError('Xóa không thành công');
+            });
+        }
+
+        // hàm logic: đầu tiên isAll= true, khi click vào làm selectAll ở View kiểm tra đk nếu isAll=true thì lăp qua productCategories và gán cho ng-model=item.checked
+        // ở ngoài View là true, ngược lại isAll=false
+        $scope.selectAll = selectAll;
+        $scope.isAll = true;
+        function selectAll() {
+            if ($scope.isAll === true) {
+                angular.forEach($scope.productCategories, function (item) {
+                    item.checked = true;
+                });
+                $scope.isAll = false;
+            } else {
+                angular.forEach($scope.productCategories, function (item) {
+                    item.checked = false;
+                });
+                $scope.isAll = true;
+            }
+        }
+
+        //phương thức lắng nghe khi ta check vào checkbox
+        $scope.$watch("productCategories", function (n, o) {
+            var checked = $filter("filter")(n, { checked: true });
+            if (checked.length) {
+                $scope.selected = checked;
+                $('#btnDelete').removeAttr('disabled');
+            } else {
+                $('#btnDelete').attr('disabled', 'disabled');
+            }
+        }, true);
+
     }
 })(angular.module('shop.product_categories'));
