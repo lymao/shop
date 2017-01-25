@@ -26,6 +26,8 @@ namespace Web.Mappings
 
                 cfg.CreateMap<ProductCategory, ProductCategoryViewModel>();
 
+                cfg.CreateMap<Product, ProductViewModel>();
+
             });
             //For version of Automapper <5.0
             //Mapper.CreateMap<PostCategory, PostCategoryViewModel>();
