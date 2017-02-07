@@ -30,6 +30,8 @@ namespace Web.Mappings
 
                 cfg.CreateMap<Footer, FooterViewModel>();
 
+                cfg.CreateMap<Slide, SlideViewModel>();
+
             });
             //For version of Automapper <5.0
             //Mapper.CreateMap<PostCategory, PostCategoryViewModel>();

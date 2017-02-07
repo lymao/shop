@@ -15,6 +15,7 @@
         protected override void Seed(Data.ShopDbContext context)
         {
             CreateProductCategorySample(context);
+            CreateSlide(context);
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
@@ -63,5 +64,41 @@
                 context.SaveChanges();
             }
         }
+
+        private void CreateSlide(ShopDbContext context)
+        {
+            if (context.Slides.Count() == 0)
+            {
+                List<Slide> listSlide = new List<Slide>()
+                {
+                    new Slide() {
+                        Name ="Slide 1",
+                        DisplayOrder =1,
+                        Status =true,
+                        Url ="#",
+                        Image ="/Assets/client/images/bag.jpg",
+                        Content =@"	<h2>FLAT 50% 0FF</h2>
+                                <label>FOR ALL PURCHASE <b>VALUE</b></label>
+                                <p>Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit, sed do eiusmod tempor incididunt ut labore et </ p >
+                        <span class=""on-get"">GET NOW</span>" },
+                    new Slide() {
+                        Name ="Slide 2",
+                        DisplayOrder =2,
+                        Status =true,
+                        Url ="#",
+                        Image ="/Assets/client/images/bag1.jpg",
+                    Content=@"<h2>FLAT 50% 0FF</h2>
+                                <label>FOR ALL PURCHASE <b>VALUE</b></label>
+
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et </ p >
+
+                                <span class=""on-get"">GET NOW</span>"},
+                };
+                context.Slides.AddRange(listSlide);
+                context.SaveChanges();
+            }
+        }
+
     }
 }
