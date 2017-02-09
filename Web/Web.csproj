@@ -4544,6 +4544,8 @@
     <Content Include="Assets\admin\libs\angular\package.json" />
     <Content Include="Assets\admin\libs\angular\README.md" />
     <Content Include="Assets\client\images\Thumbs.db" />
+    <Content Include="AppSettings.config" />
+    <Content Include="ConnectionStrings.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\shared\_LayoutPage.cshtml" />

@@ -18,6 +18,7 @@ namespace Web.Infrastructure.Core
         public int PageSize { set; get; }
         public int TotalPages { set; get; }
         public int TotalCount { set; get; }
+        public int MaxPage { set; get; }
         public IEnumerable<T> Items { set; get; }
     }
 }
