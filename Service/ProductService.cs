@@ -28,8 +28,11 @@ namespace Service
 
         IEnumerable<Product> GetHotProduct(int top);
 
-        IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId,int page,int pageSize,out int totalRow);
+        IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId,int page,int pageSize,string sort,out int totalRow);
 
+        IEnumerable<Product> Search(string keyword, int page, int pageSize, string sort, out int totalRow);
+
+        IEnumerable<string> GetListProductByName(string name);
         void Save();
     }
 
@@ -143,10 +146,52 @@ namespace Service
             return _productRepository.GetMulti(x => x.Status && x.HotFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
-        public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, out int totalRow)
+        public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)
         {
             var query = _productRepository.GetMulti(x => x.CategoryID == categoryId && x.Status);
             totalRow = query.Count();
+            switch (sort)
+            {
+                case "popular":
+                    query = query.OrderByDescending(x => x.ViewCount);
+                    break;
+                case "discount":
+                    query = query.OrderByDescending(m => m.PromotionPrice.HasValue);
+                    break;
+                case "price":
+                    query = query.OrderBy(m => m.Price);
+                    break;
+                default:
+                    query = query.OrderByDescending(m => m.CreatedDate);
+                    break;
+            }
+            return query.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        public IEnumerable<string> GetListProductByName(string name)
+        {
+            return _productRepository.GetMulti(x => x.Status && x.Name.Contains(name)).Select(y=>y.Name);
+        }
+
+        public IEnumerable<Product> Search(string keyword, int page, int pageSize, string sort, out int totalRow)
+        {
+            var query = _productRepository.GetMulti(x => x.Name.Contains(keyword) && x.Status);
+            totalRow = query.Count();
+            switch (sort)
+            {
+                case "popular":
+                    query = query.OrderByDescending(x => x.ViewCount);
+                    break;
+                case "discount":
+                    query = query.OrderByDescending(m => m.PromotionPrice.HasValue);
+                    break;
+                case "price":
+                    query = query.OrderBy(m => m.Price);
+                    break;
+                default:
+                    query = query.OrderByDescending(m => m.CreatedDate);
+                    break;
+            }
             return query.Skip((page - 1) * pageSize).Take(pageSize);
         }
     }
