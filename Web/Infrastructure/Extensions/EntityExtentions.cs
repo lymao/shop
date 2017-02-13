@@ -86,6 +86,7 @@ namespace Web.Infrastructure.Extensions
             product.HomeFlag = productVm.HomeFlag;
             product.ViewCount = productVm.ViewCount;
             product.HotFlag = productVm.HotFlag;
+            product.Quantity = productVm.Quantity;
 
             product.CreatedDate = productVm.CreatedDate;
             product.CreatedBy = productVm.CreatedBy;

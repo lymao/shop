@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Web.Infrastructure.Core;
 using Web.Models;
 
@@ -79,9 +80,19 @@ namespace Web.Controllers
             },JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int productId)
         {
-            return View();
+            var model = _productService.GetById(productId);
+            var productViewModel = Mapper.Map<Product, ProductViewModel>(model);
+
+            var relatedProduct = _productService.GetRelatedProduct(productId, 6);
+            ViewBag.RelatedProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(relatedProduct);
+
+            var moreImage = ViewBag.MoreImage;
+            List<string> listImages = new JavaScriptSerializer().Deserialize<List<string>>(productViewModel.MoreImages);
+            ViewBag.MoreImages = listImages;
+
+            return View(productViewModel);
         }
     }
 }
