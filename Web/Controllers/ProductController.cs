@@ -88,11 +88,33 @@ namespace Web.Controllers
             var relatedProduct = _productService.GetRelatedProduct(productId, 6);
             ViewBag.RelatedProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(relatedProduct);
 
-            var moreImage = ViewBag.MoreImage;
             List<string> listImages = new JavaScriptSerializer().Deserialize<List<string>>(productViewModel.MoreImages);
             ViewBag.MoreImages = listImages;
 
+            ViewBag.Tags = Mapper.Map<IEnumerable<Tag>, IEnumerable<TagViewModel>>(_productService.GetListTagByProductId(productId));
+
             return View(productViewModel);
+        }
+        public ActionResult ListProductByTag(string tagId,int page=1)
+        {
+            int pageSize = int.Parse(ConfigHelper.GetByKey("pageSize"));
+            int totalRow = 0;
+            var model = _productService.GetListProductByTag(tagId, page, pageSize, out totalRow);
+            var viewModel = Mapper.Map<IEnumerable<Product>,IEnumerable<ProductViewModel>>(model);
+            int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+
+            ViewBag.Tag = Mapper.Map<Tag, TagViewModel>(_productService.GetTags(tagId));
+
+            var paginationSet = new PaginationSet<ProductViewModel>
+            {
+                Page = page,
+                PageSize = pageSize,
+                TotalPages = totalPage,
+                TotalCount = totalRow,
+                MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
+                Items = viewModel
+            };
+            return View(paginationSet);
         }
     }
 }
