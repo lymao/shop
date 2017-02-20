@@ -21,6 +21,7 @@ namespace Web.Controllers
             this._commonService = commonService;
             this._productService = productService;
         }
+        [OutputCache(Duration = 60, Location = System.Web.UI.OutputCacheLocation.Server)]
         public ActionResult Index()
         {
             var homeViewModel = new HomeViewModel();
@@ -47,6 +48,7 @@ namespace Web.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration = 300)]
         public ActionResult SidebarPartial()
         {
             var model = _productCategoryService.GetAll();
@@ -55,6 +57,7 @@ namespace Web.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration = 300)]
         public ActionResult FooterPartial()
         {
             var footer = _commonService.GetFooter();
