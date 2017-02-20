@@ -194,6 +194,7 @@
   <ItemGroup>
     <Compile Include="Api\AccountController.cs" />
     <Compile Include="Api\HomeController.cs" />
+    <Compile Include="Api\PageController.cs" />
     <Compile Include="Api\PostCategoryController.cs" />
     <Compile Include="Api\ProductCategoryController.cs" />
     <Compile Include="Api\ProductController.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -264,6 +266,13 @@
     <Content Include="app\components\home\rootController.js" />
     <Content Include="app\components\login\loginController.js" />
     <Content Include="app\components\login\loginView.html" />
+    <Content Include="app\components\pages\pageAddController.js" />
+    <Content Include="app\components\pages\pageAddView.html" />
+    <Content Include="app\components\pages\pageEditController.js" />
+    <Content Include="app\components\pages\pageEditView.html" />
+    <Content Include="app\components\pages\pageListController.js" />
+    <Content Include="app\components\pages\pageListView.html" />
+    <Content Include="app\components\pages\pages.module.js" />
     <Content Include="app\components\products\productAddController.js" />
     <Content Include="app\components\products\productAddView.html" />
     <Content Include="app\components\products\productEditController.js" />
@@ -5182,6 +5191,7 @@
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Product\ListProductByTag.cshtml" />
+    <Content Include="Views\Page\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

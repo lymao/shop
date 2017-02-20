@@ -22,13 +22,13 @@ namespace Web
                      defaults: new { controller = "Product", action = "Search", id = UrlParameter.Optional },
                      namespaces: new string[] { "Web.Controllers" });
 
-            routes.MapRoute(
-                      name: "About",
-                      url: "gioi-thieu.html",
-                      defaults: new { controller = "About", action = "Index", id = UrlParameter.Optional },
-                      namespaces: new string[] { "Web.Controllers" });
-
             //Các trang có tham số truyền vào sau
+            routes.MapRoute(
+                     name: "Page",
+                     url: "trang/{alias}.html",
+                     defaults: new { controller = "Page", action = "Index", alias = UrlParameter.Optional },
+                     namespaces: new string[] { "Web.Controllers" });
+
             routes.MapRoute(
                         name: "Product",
                         url: "{alias}.pc-{id}.html",
