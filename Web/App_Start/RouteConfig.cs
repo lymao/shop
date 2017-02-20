@@ -17,6 +17,12 @@ namespace Web
                      namespaces: new string[] { "Web.Controllers" });
 
             routes.MapRoute(
+                    name: "Contact",
+                    url: "lien-he.html",
+                    defaults: new { controller = "ContactDetail", action = "Index", id = UrlParameter.Optional },
+                    namespaces: new string[] { "Web.Controllers" });
+
+            routes.MapRoute(
                      name: "Search",
                      url: "tim-kiem.html",
                      defaults: new { controller = "Product", action = "Search", id = UrlParameter.Optional },

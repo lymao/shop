@@ -1,0 +1,51 @@
+﻿@model Web.Models.ContactDetailViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/shared/_LayoutPage.cshtml";
+}
+
+<input type="hidden" id="contentView" value="@Model.Name <br />@Model.Address<br /> @Model.Phone" />
+<input type="hidden" id="hidLat" value="@Model.Lat" />
+<input type="hidden" id="hidLng" value="@Model.Lng" />
+
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<div class="main">
+    <div class="reservation_top">
+        <div class="contact_right">
+            <h3>Địa điểm</h3>
+            <div id="map"></div>
+            <h3>Thông tin liên hệ</h3>
+            <div class="contact-form">
+                <form method="post" action="contact-post.html">
+                    <input type="text" class="textbox" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
+                    <input type="text" class="textbox" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
+                    <textarea value="Message" onfocus="this.value= '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
+                    <input type="submit" value="Send">
+                    <div class="clearfix"> </div>
+                </form>
+                <address class="address">
+                    <p>@Model.Name</p>
+                    <dl>
+                        <dd>Điện thoại:<span> @Model.Phone</span></dd>
+                        <dd>Địa chỉ:<span> @Model.Address</span></dd>
+                        <dd>E-mail:&nbsp; <a href="@Model.Email">@Model.Email</a></dd>
+                    </dl>
+                </address>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Assets/client/js/controller/contact.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_XxBdItLd0APpuWZKS-xcLC0Wqi7ebYU&callback=initMap">
+</script>
+
+
