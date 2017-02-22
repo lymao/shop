@@ -86,6 +86,7 @@ namespace Web.Infrastructure.Extensions
             product.HomeFlag = productVm.HomeFlag;
             product.ViewCount = productVm.ViewCount;
             product.HotFlag = productVm.HotFlag;
+            product.Quantity = productVm.Quantity;
 
             product.CreatedDate = productVm.CreatedDate;
             product.CreatedBy = productVm.CreatedBy;
@@ -95,6 +96,31 @@ namespace Web.Infrastructure.Extensions
             product.MetaDescription = productVm.MetaDescription;
             product.Status = productVm.Status;
             product.Tags = productVm.Tags;
+        }
+
+        public static void UpdatePage(this Page page, PageViewModel pageVm)
+        {
+            page.ID = pageVm.ID;
+            page.Name = pageVm.Name;
+            page.Alias = pageVm.Alias;
+            page.Content = pageVm.Content;
+
+            page.CreatedDate = pageVm.CreatedDate;
+            page.CreatedBy = pageVm.CreatedBy;
+            page.UpdatedDate = pageVm.UpdatedDate;
+            page.UpdatedBy = pageVm.UpdatedBy;
+            page.MetaKeyword = pageVm.MetaKeyword;
+            page.MetaDescription = pageVm.MetaDescription;
+            page.Status = pageVm.Status;
+        }
+
+        public static void UpdateFeedback(this Feedback feedback, FeedbackViewModel feedbackVm)
+        {
+            feedback.Name = feedbackVm.Name;
+            feedback.Email = feedbackVm.Email;
+            feedback.Message = feedbackVm.Message;
+            feedback.Status = feedbackVm.Status;
+            feedback.CreatedDate = DateTime.Now;
         }
     }
 }

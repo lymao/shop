@@ -32,6 +32,10 @@ namespace Web.Mappings
 
                 cfg.CreateMap<Slide, SlideViewModel>();
 
+                cfg.CreateMap<Page, PageViewModel>();
+
+                cfg.CreateMap<ContactDetail, ContactDetailViewModel>();
+
             });
             //For version of Automapper <5.0
             //Mapper.CreateMap<PostCategory, PostCategoryViewModel>();

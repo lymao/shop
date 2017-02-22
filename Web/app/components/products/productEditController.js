@@ -56,6 +56,7 @@
             languague: 'vi',
             height: '200px'
         }
+
         $scope.UpdateProduct = UpdateProduct;
         function UpdateProduct() {
             $scope.product.MoreImages = JSON.stringify($scope.moreImages);

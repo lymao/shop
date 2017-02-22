@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Web.Infrastructure.Core;
 using Web.Models;
 
@@ -79,9 +80,41 @@ namespace Web.Controllers
             },JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int productId)
         {
-            return View();
+            var model = _productService.GetById(productId);
+            var productViewModel = Mapper.Map<Product, ProductViewModel>(model);
+
+            var relatedProduct = _productService.GetRelatedProduct(productId, 6);
+            ViewBag.RelatedProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(relatedProduct);
+
+            List<string> listImages = new JavaScriptSerializer().Deserialize<List<string>>(productViewModel.MoreImages);
+            ViewBag.MoreImages = listImages;
+
+            ViewBag.Tags = Mapper.Map<IEnumerable<Tag>, IEnumerable<TagViewModel>>(_productService.GetListTagByProductId(productId));
+
+            return View(productViewModel);
+        }
+        public ActionResult ListProductByTag(string tagId,int page=1)
+        {
+            int pageSize = int.Parse(ConfigHelper.GetByKey("pageSize"));
+            int totalRow = 0;
+            var model = _productService.GetListProductByTag(tagId, page, pageSize, out totalRow);
+            var viewModel = Mapper.Map<IEnumerable<Product>,IEnumerable<ProductViewModel>>(model);
+            int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+
+            ViewBag.Tag = Mapper.Map<Tag, TagViewModel>(_productService.GetTags(tagId));
+
+            var paginationSet = new PaginationSet<ProductViewModel>
+            {
+                Page = page,
+                PageSize = pageSize,
+                TotalPages = totalPage,
+                TotalCount = totalRow,
+                MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
+                Items = viewModel
+            };
+            return View(paginationSet);
         }
     }
 }

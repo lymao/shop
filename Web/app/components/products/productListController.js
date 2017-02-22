@@ -80,7 +80,7 @@
             });
         }
 
-        // hàm logic: đầu tiên isAll= true, khi click vào làm selectAll ở View kiểm tra đk nếu isAll=true thì lăp qua productCategories và gán cho ng-model=item.checked
+        // hàm logic: đầu tiên isAll= true, khi click vào hàm selectAll ở View kiểm tra đk nếu isAll=true thì lăp qua products và gán cho ng-model=item.checked
         // ở ngoài View là true, ngược lại isAll=false
         $scope.selectAll = selectAll;
         $scope.isAll = true;

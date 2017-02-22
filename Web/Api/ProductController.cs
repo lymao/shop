@@ -89,7 +89,7 @@ namespace Web.Api
         [Route("create")]
         [HttpPost]
         [AllowAnonymous]
-        public HttpResponseMessage Create(HttpRequestMessage request, ProductViewModel productCategoryVm)
+        public HttpResponseMessage Create(HttpRequestMessage request, ProductViewModel productVm)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -101,7 +101,7 @@ namespace Web.Api
                 else
                 {
                     var newProduct = new Product();
-                    newProduct.UpdateProduct(productCategoryVm);
+                    newProduct.UpdateProduct(productVm);
                     newProduct.CreatedDate = DateTime.Now;
                     newProduct.CreatedBy = User.Identity.Name;
                     _productService.Add(newProduct);
