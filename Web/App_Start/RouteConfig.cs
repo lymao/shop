@@ -21,6 +21,12 @@ namespace Web
                      namespaces: new string[] { "Web.Controllers" });
 
             routes.MapRoute(
+                    name: "Register",
+                    url: "dang-ky.html",
+                    defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional },
+                    namespaces: new string[] { "Web.Controllers" });
+
+            routes.MapRoute(
                     name: "Contact",
                     url: "lien-he.html",
                     defaults: new { controller = "ContactDetail", action = "Index", id = UrlParameter.Optional },
