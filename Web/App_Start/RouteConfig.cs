@@ -17,7 +17,7 @@ namespace Web
             routes.MapRoute(
                      name: "Login",
                      url: "dang-nhap.html",
-                     defaults: new { controller = "Account", action = "Index", id = UrlParameter.Optional },
+                     defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
                      namespaces: new string[] { "Web.Controllers" });
 
             routes.MapRoute(

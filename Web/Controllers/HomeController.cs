@@ -21,7 +21,7 @@ namespace Web.Controllers
             this._commonService = commonService;
             this._productService = productService;
         }
-        [OutputCache(Duration = 60, Location = System.Web.UI.OutputCacheLocation.Server)]
+        [OutputCache(Duration = 60, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             var homeViewModel = new HomeViewModel();
