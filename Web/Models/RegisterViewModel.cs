@@ -15,8 +15,13 @@ namespace Web.Models
         public string UserName { set; get; }
 
         [Required(ErrorMessage = "Bạn cần nhập mật khẩu.")]
-        [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự")]
-        public string Password { set; get; }
+        [StringLength(100, ErrorMessage = "{0} phải ít nhất là {2} ký tự.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Mật khẩu và xác nhật mật khẩu không đúng.")]
+        public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Bạn cần nhập email.")]
         [EmailAddress(ErrorMessage = "Địa chỉ email không đúng.")]

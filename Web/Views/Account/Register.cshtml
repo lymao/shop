@@ -36,9 +36,10 @@
                 @Html.TextBoxFor(model => model.UserName)
                 <span>Mật khẩu<label>*</label></span>
                 @Html.PasswordFor(model => model.Password)
+                <span>Xác nhận mật khẩu<label>*</label></span>
+                @Html.PasswordFor(model => model.ConfirmPassword)
 
                 <div class="clearfix"> </div>
-
                 @{
                     MvcCaptcha registerCaptcha = new MvcCaptcha("RegisterCaptcha");
                 }
