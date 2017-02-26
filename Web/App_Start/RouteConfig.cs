@@ -33,6 +33,12 @@ namespace Web
                     namespaces: new string[] { "Web.Controllers" });
 
             routes.MapRoute(
+                    name: "Cart",
+                    url: "gio-hang.html",
+                    defaults: new { controller = "ShoppingCart", action = "Index", id = UrlParameter.Optional },
+                    namespaces: new string[] { "Web.Controllers" });
+
+            routes.MapRoute(
                      name: "Search",
                      url: "tim-kiem.html",
                      defaults: new { controller = "Product", action = "Search", id = UrlParameter.Optional },
