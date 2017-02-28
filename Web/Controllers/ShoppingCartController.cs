@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common;
+using Microsoft.AspNet.Identity;
 using Model.Models;
 using Service;
 using System;
@@ -8,6 +9,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Web.App_Start;
+using Web.Infrastructure.Extensions;
 using Web.Models;
 
 namespace Web.Controllers
@@ -15,10 +18,13 @@ namespace Web.Controllers
     public class ShoppingCartController : Controller
     {
         private IProductService _productService;
-
-        public ShoppingCartController(IProductService productService)
+        private ApplicationUserManager _userManager;
+        IOrderService _orderService;
+        public ShoppingCartController(IProductService productService, ApplicationUserManager userManager, IOrderService orderService)
         {
             this._productService = productService;
+            this._userManager = userManager;
+            this._orderService = orderService;
         }
         // GET: ShoppingCart
         public ActionResult Index()
@@ -26,6 +32,24 @@ namespace Web.Controllers
             if (Session[CommonConstants.SessionCart] == null)
                 Session[CommonConstants.SessionCart] = new List<ShoppingCartViewModel>();
             return View();
+        }
+
+        public ActionResult GetUser()
+        {
+            if (Request.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = _userManager.FindById(userId);
+                return Json(new
+                {
+                    data = user,
+                    status = true
+                });
+            }
+            return Json(new
+            {
+                status = false
+            });
         }
 
         public JsonResult GetAll()
@@ -80,9 +104,9 @@ namespace Web.Controllers
         {
             var cartViewModel = new JavaScriptSerializer().Deserialize<List<ShoppingCartViewModel>>(cartData);
             var cartSession = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
-            foreach(var item in cartSession)
+            foreach (var item in cartSession)
             {
-                foreach(var jitem in cartViewModel)
+                foreach (var jitem in cartViewModel)
                 {
                     if (item.ProductId == jitem.ProductId)
                     {
@@ -90,6 +114,33 @@ namespace Web.Controllers
                     }
                 }
             }
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        [HttpPost]
+        public JsonResult CreateOrder(string orderViewModel)
+        {
+            var order = new JavaScriptSerializer().Deserialize<OrderViewModel>(orderViewModel);
+            var orderNew = new Order();
+            orderNew.UpdateOrder(order);
+            if (Request.IsAuthenticated)
+            {
+                orderNew.CustomerId = User.Identity.GetUserId();
+                orderNew.CustomerName = User.Identity.GetUserName();
+            }
+            var cartSession = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
+            List<OrderDetail> orderDetails = new List<OrderDetail>();
+            foreach(var item in cartSession)
+            {
+                var orderDetail = new OrderDetail();
+                orderDetail.ProductID = item.ProductId;
+                orderDetail.Quantity = item.Quantity;
+                orderDetails.Add(orderDetail);
+            }
+            _orderService.Create(orderNew, orderDetails);
             return Json(new
             {
                 status = true
@@ -116,12 +167,12 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeleteAll(string productId)
+        public JsonResult DeleteAll()
         {
             Session[CommonConstants.SessionCart] = new List<ShoppingCartViewModel>();
             return Json(new
             {
-                status = false
+                status = true
             });
         }
     }

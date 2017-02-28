@@ -4,6 +4,9 @@
 .taglist li{
 	float:left;
 }
+.error{
+    color:red;
+}
 
 .register-top-grid input[type="text"], .register-top-grid input[type="password"] {
     border: 1px solid #EEE;
