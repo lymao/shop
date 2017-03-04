@@ -36,6 +36,12 @@ namespace Web.Mappings
 
                 cfg.CreateMap<ContactDetail, ContactDetailViewModel>();
 
+                cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
+
+                cfg.CreateMap<ApplicationGroup, ApplicationGroupViewModel>();
+
+                cfg.CreateMap<ApplicationRole, ApplicationRoleViewModel>();
+
             });
             //For version of Automapper <5.0
             //Mapper.CreateMap<PostCategory, PostCategoryViewModel>();
