@@ -69,9 +69,18 @@ namespace Web.Controllers
         public JsonResult Add(int productId)
         {
             var cart = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
+            var product = _productService.GetById(productId);
             if (cart == null)
             {
                 cart = new List<ShoppingCartViewModel>();
+            }
+            if (product.Quantity == 0)
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = "Sản phẩm này hiện đang hết hàng."
+                });
             }
             if (cart.Any(x => x.ProductId == productId))
             {
@@ -87,7 +96,6 @@ namespace Web.Controllers
             {
                 ShoppingCartViewModel newItem = new ShoppingCartViewModel();
                 newItem.ProductId = productId;
-                var product = _productService.GetById(productId);
                 newItem.Product = Mapper.Map<Product, ProductViewModel>(product);
                 newItem.Quantity = 1;
                 cart.Add(newItem);
@@ -132,19 +140,36 @@ namespace Web.Controllers
                 orderNew.CustomerName = User.Identity.GetUserName();
             }
             var cartSession = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
+            bool isEnough = true;
             List<OrderDetail> orderDetails = new List<OrderDetail>();
-            foreach(var item in cartSession)
+            foreach (var item in cartSession)
             {
                 var orderDetail = new OrderDetail();
                 orderDetail.ProductID = item.ProductId;
                 orderDetail.Quantity = item.Quantity;
+                orderDetail.Price = item.Product.Price;
                 orderDetails.Add(orderDetail);
+                isEnough = _productService.SellProduct(item.ProductId, item.Quantity);
+                break;
             }
-            _orderService.Create(orderNew, orderDetails);
-            return Json(new
+            if (isEnough)
             {
-                status = true
-            });
+                _orderService.Create(orderNew, orderDetails);
+                _productService.Save();
+                return Json(new
+                {
+                    status = true
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = false,
+                    message = "Không đủ hàng."
+                });
+            }
+
         }
 
         [HttpPost]

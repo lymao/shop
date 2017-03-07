@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,10 @@ namespace Web
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            //Ignore cac thuoc tinh cua Serializable
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
+            new DefaultContractResolver { IgnoreSerializableAttribute = true };
 
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));

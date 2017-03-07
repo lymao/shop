@@ -44,6 +44,8 @@ namespace Service
 
         IEnumerable<Tag> GetListTagByProductId(int id);
 
+        bool SellProduct(int productId, int quantity);
+
         void Save();
     }
 
@@ -236,6 +238,16 @@ namespace Service
         public IEnumerable<Tag> GetListTagByProductId(int id)
         {
             return _productTagRepository.GetMulti(x => x.ProductID == id, new string[] { "Tag" }).Select(y => y.Tag);
+        }
+
+        //Selling product
+        public bool SellProduct(int productId, int quantity)
+        {
+            var product = _productRepository.GetSingleById(productId);
+            if (product.Quantity < quantity)
+                return false;
+            product.Quantity -= quantity;
+            return true;
         }
     }
 }
