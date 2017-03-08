@@ -19,6 +19,7 @@
             CreateProductCategorySample(context);
             CreateSlide(context);
             CreateContactDetail(context);
+            CreateConfigTitle(context);
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
@@ -50,6 +51,37 @@
 
             //var adminUser = userManager.FindByEmail("lymaodt@gmail.com");
             //userManager.AddToRole(adminUser.Id, "Admin");
+        }
+
+        private void CreateConfigTitle(ShopDbContext context)
+        {
+            if (!context.SystemConfigs.Any(x => x.Code == "HomeTitle"))
+            {
+                context.SystemConfigs.Add(new SystemConfig()
+                {
+                    Code = "HomeTitle",
+                    ValueString = "Trang chủ Shop",
+
+                });
+            }
+            if (!context.SystemConfigs.Any(x => x.Code == "HomeMetaKeyword"))
+            {
+                context.SystemConfigs.Add(new SystemConfig()
+                {
+                    Code = "HomeMetaKeyword",
+                    ValueString = "trang chu shop",
+
+                });
+            }
+            if (!context.SystemConfigs.Any(x => x.Code == "HomeMetaDescription"))
+            {
+                context.SystemConfigs.Add(new SystemConfig()
+                {
+                    Code = "HomeMetaDescription",
+                    ValueString = "Trang chủ Shop",
+
+                });
+            }
         }
 
         private void CreateProductCategorySample(ShopDbContext context)
