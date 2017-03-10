@@ -5353,6 +5353,48 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Libs\CKFinder.dll" />
+    <Content Include="UploadedFiles\files\1027772837.jpeg" />
+    <Content Include="UploadedFiles\files\1400536065.jpeg" />
+    <Content Include="UploadedFiles\files\175901774.jpeg" />
+    <Content Include="UploadedFiles\files\1974752913.jpeg" />
+    <Content Include="UploadedFiles\files\655_laptop-macbook-12-1020x550-1.jpg" />
+    <Content Include="UploadedFiles\files\655_laptop-macbook-12-1020x550-2.jpg" />
+    <Content Include="UploadedFiles\files\655_laptop-macbook-12-1020x550-3.jpg" />
+    <Content Include="UploadedFiles\files\655_laptop-macbook-12-1020x550-4.jpg" />
+    <Content Include="UploadedFiles\files\655_laptop-macbook-12-1020x550-5.jpg" />
+    <Content Include="UploadedFiles\files\655_laptop-macbook-12-1020x550-7.jpg" />
+    <Content Include="UploadedFiles\files\655_sony-xperia-xz-10.jpg" />
+    <Content Include="UploadedFiles\files\655_sony-xperia-xz-11.jpg" />
+    <Content Include="UploadedFiles\files\655_sony-xperia-xz-8.jpg" />
+    <Content Include="UploadedFiles\files\655_sony-xperia-xz-9.jpg" />
+    <Content Include="UploadedFiles\files\ba.jpg" />
+    <Content Include="UploadedFiles\files\baa.jpg" />
+    <Content Include="UploadedFiles\files\bo.jpg" />
+    <Content Include="UploadedFiles\files\bott.jpg" />
+    <Content Include="UploadedFiles\files\bottle.jpg" />
+    <Content Include="UploadedFiles\files\ch.jpg" />
+    <Content Include="UploadedFiles\files\wa.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\1027772837.jpeg" />
+    <Content Include="UploadedFiles\_thumbs\Files\1400536065.jpeg" />
+    <Content Include="UploadedFiles\_thumbs\Files\175901774.jpeg" />
+    <Content Include="UploadedFiles\_thumbs\Files\1974752913.jpeg" />
+    <Content Include="UploadedFiles\_thumbs\Files\655_laptop-macbook-12-1020x550-1.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\655_laptop-macbook-12-1020x550-2.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\655_laptop-macbook-12-1020x550-3.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\655_laptop-macbook-12-1020x550-4.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\655_laptop-macbook-12-1020x550-5.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\655_laptop-macbook-12-1020x550-7.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\655_sony-xperia-xz-10.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\655_sony-xperia-xz-11.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\655_sony-xperia-xz-8.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\655_sony-xperia-xz-9.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\ba.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\baa.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\bo.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\bott.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\bottle.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\ch.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Files\wa.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -5367,7 +5409,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\admin\libs\checklist-model\test\" />
-    <Folder Include="UploadedFiles\" />
     <Folder Include="Views\About\" />
   </ItemGroup>
   <ItemGroup>
@@ -5705,6 +5746,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\shoppublish.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
