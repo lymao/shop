@@ -18,8 +18,6 @@ namespace Web
                         "~/Assets/client/css/style.css"
                         ));
 
-            bundles.Add(new ScriptBundle("~/js/jquery").Include(
-                       "~/Assets/admin/libs/jquery/dist/jquery.min.js"));
 
             bundles.Add(new ScriptBundle("~/js/plugins").Include(
                       "~/Assets/admin/libs/jquery-ui/jquery-ui.min.js",
