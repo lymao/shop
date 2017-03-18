@@ -10,7 +10,10 @@
         }
         $scope.authentication = authData.authenticationData;
 
-        authenticationService.validateRequest();
+        //Lỗi ở hàm validateRequest() này khi refresh lại trang thì bị out ra trang login
+        //authenticationService.validateRequest();
+
+
     }
 })(angular.module('shop'));
 

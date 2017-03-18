@@ -16,6 +16,7 @@ using Web.Models;
 namespace Web.Api
 {
     [RoutePrefix("api/applicationRole")]
+    [Authorize]
     public class ApplicationRoleController : ApiControllerBase
     {
         private IApplicationRoleService _appRoleService;

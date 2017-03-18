@@ -19,6 +19,7 @@ using System.Web.Script.Serialization;
 namespace Web.Api
 {
     [RoutePrefix("api/applicationGroup")]
+    [Authorize]
     public class ApplicationGroupController : ApiControllerBase
     {
         private IApplicationGroupService _appGroupService;

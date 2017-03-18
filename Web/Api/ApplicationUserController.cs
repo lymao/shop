@@ -17,6 +17,7 @@ using Common.Exceptions;
 namespace Web.Api
 {
     [RoutePrefix("api/applicationUser")]
+    [Authorize]
     public class ApplicationUserController : ApiControllerBase
     {
         private ApplicationUserManager _userManager;
@@ -35,6 +36,7 @@ namespace Web.Api
 
         [Route("getlistpaging")]
         [HttpGet]
+        //[Authorize(Roles = "ViewUser")]
         public HttpResponseMessage GetListPaging(HttpRequestMessage request, int page, int pageSize, string filter = null)
         {
             return CreateHttpResponse(request, () =>
@@ -60,6 +62,7 @@ namespace Web.Api
 
         [Route("detail/{id}")]
         [HttpGet]
+        //[Authorize(Roles = "ViewUser")]
         public HttpResponseMessage Details(HttpRequestMessage request, string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -84,6 +87,7 @@ namespace Web.Api
 
         [HttpPost]
         [Route("add")]
+        [Authorize(Roles = "AddUser")]
         public async Task<HttpResponseMessage> Create(HttpRequestMessage request, ApplicationUserViewModel applicationUserViewModel)
         {
             if (ModelState.IsValid)
@@ -108,7 +112,7 @@ namespace Web.Api
                             var listRole = _appRoleService.GetListRoleByGroupId(group.ID);
                             foreach (var role in listRole)
                             {
-                                await _userManager.RemoveFromRoleAsync(newAppUser.Id, role.Name);
+                                await _userManager.RemoveFromRolesAsync(newAppUser.Id, role.Name);
                                 await _userManager.AddToRoleAsync(newAppUser.Id, role.Name);
                             }
                         }
@@ -139,6 +143,7 @@ namespace Web.Api
 
         [HttpPut]
         [Route("update")]
+        [Authorize(Roles = "UpdateUser")]
         public async Task<HttpResponseMessage> Update(HttpRequestMessage request, ApplicationUserViewModel applicationUserViewModel)
         {
             if (ModelState.IsValid)
@@ -162,7 +167,7 @@ namespace Web.Api
                             var listRole = _appRoleService.GetListRoleByGroupId(group.ID);
                             foreach (var role in listRole)
                             {
-                                await _userManager.RemoveFromRoleAsync(appUser.Id, role.Name);
+                                await _userManager.RemoveFromRolesAsync(appUser.Id, role.Name);
                                 await _userManager.AddToRoleAsync(appUser.Id, role.Name);
                             }
                         }
@@ -187,6 +192,7 @@ namespace Web.Api
 
         [HttpDelete]
         [Route("delete")]
+        [Authorize(Roles = "DeleteUser")]
         public async Task<HttpResponseMessage> Delete(HttpRequestMessage request, string id)
         {
             var appUser = await _userManager.FindByIdAsync(id);
