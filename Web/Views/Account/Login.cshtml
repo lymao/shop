@@ -32,6 +32,8 @@
             <a class="forgot" href="#">Quên mật khẩu của bạn?</a>
             <input type="submit" value="Login">
         }
+
+                @Html.Partial("_ExternalLoginsListPartial", new Web.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
             
     </div>
     <div class="login-left">

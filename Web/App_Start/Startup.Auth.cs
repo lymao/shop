@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Model.Models;
 using Owin;
@@ -46,7 +47,7 @@ namespace Web.App_Start
                     // This is a security feature which is used when you change a password or add an external login to your account.  
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
                         validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie))
                 }
             });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
@@ -60,15 +61,16 @@ namespace Web.App_Start
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "186963615138583",
+               appSecret: "a10023c3436f03ac2c23ba5552205c03");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "555596605538-1r8bgfcseqbg2abkce7bc9vnaa9v7m99.apps.googleusercontent.com",
+                ClientSecret = "O6V0zSXadgnVay5ncMx3XyIa"
+            });
+
         }
 
         public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
