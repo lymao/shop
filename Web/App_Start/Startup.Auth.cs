@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using Common;
+using Data;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -8,9 +9,12 @@ using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Model.Models;
 using Owin;
+using Service;
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Web.Infrastructure.Core;
 
 [assembly: OwinStartup(typeof(Web.App_Start.Startup))]
 
@@ -102,10 +106,21 @@ namespace Web.App_Start
                 }
                 if (user != null)
                 {
-                    ClaimsIdentity identity = await userManager.CreateIdentityAsync(
-                                                           user,
-                                                           DefaultAuthenticationTypes.ExternalBearer);
-                    context.Validated(identity);
+                    var applicationGroupService = ServiceFactory.Get<IApplicationGroupService>();
+                    var listGroup = applicationGroupService.GetListGroupByUserId(user.Id);
+                    if (listGroup.Any(x => x.Name == CommonConstants.Administrator))
+                    {
+                        ClaimsIdentity identity = await userManager.CreateIdentityAsync(
+                                       user,
+                                       DefaultAuthenticationTypes.ExternalBearer);
+                        context.Validated(identity);
+                    }
+                    else
+                    {
+                        context.Rejected();
+                        context.SetError("invalid_group", "Bạn không phải là admin");
+                    }
+
                 }
                 else
                 {

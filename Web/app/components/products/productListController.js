@@ -6,6 +6,7 @@
     productListController.$inject = ['$scope', 'apiService', 'notificationService', '$ngBootbox', '$filter'];
 
     function productListController($scope, apiService, notificationService, $ngBootbox, $filter) {
+        $scope.loading = true;
         $scope.products = [];
         $scope.page = 0;
         $scope.pagesCount = 0;
@@ -18,6 +19,7 @@
         }
 
         function getProducts(page) {
+            $scope.loading = true;
             page = page || 0;
             var config = {
                 params: {
@@ -37,6 +39,7 @@
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPages;
                 $scope.totalCount = result.data.TotalCount;
+                $scope.loading = false;
             }, function () {
                 console.log('Load product failed.');
             });
