@@ -22,7 +22,7 @@
             });
         }
 
-
+        $scope.loadProductCategory = loadProductCategory;
         function loadProductCategory() {
             apiService.get('api/productcategory/getallparents', null, function (result) {
                 $scope.productCategories = result.data;

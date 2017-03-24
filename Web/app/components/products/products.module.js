@@ -15,6 +15,11 @@
             templateUrl: '/app/components/products/productAddView.html',
             controller: 'productAddController',
             parent: 'base'
+        }).state('product_import', {
+            url: "/product_import",
+            parent: 'base',
+            templateUrl: "/app/components/products/productImportView.html",
+            controller: "productImportController"
         }).state('product_edit', {
             url: '/product_edit/:id',
             templateUrl: '/app/components/products/productEditView.html',
