@@ -80,6 +80,10 @@
     <Compile Include="Migrations\201703060917059_RevenueStatisticSP.Designer.cs">
       <DependentUpon>201703060917059_RevenueStatisticSP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704230859378_AddColumnDetailToProductTable.cs" />
+    <Compile Include="Migrations\201704230859378_AddColumnDetailToProductTable.Designer.cs">
+      <DependentUpon>201704230859378_AddColumnDetailToProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationGroupRepository.cs" />
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703060917059_RevenueStatisticSP.resx">
       <DependentUpon>201703060917059_RevenueStatisticSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704230859378_AddColumnDetailToProductTable.resx">
+      <DependentUpon>201704230859378_AddColumnDetailToProductTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -75,6 +75,7 @@ namespace Web.Infrastructure.Extensions
             product.ID = productVm.ID;
             product.Name = productVm.Name;
             product.Description = productVm.Description;
+            product.Detail = productVm.Detail;
             product.Alias = productVm.Alias;
             product.CategoryID = productVm.CategoryID;
             product.Content = productVm.Content;
