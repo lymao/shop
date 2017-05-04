@@ -155,6 +155,12 @@ namespace Web.Api
                     var result = await _userManager.UpdateAsync(appUser);
                     if (result.Succeeded)
                     {
+                        //remove all roles of user
+                        foreach (var role in await _userManager.GetRolesAsync(appUser.Id))
+                        {
+                            await _userManager.RemoveFromRolesAsync(appUser.Id, role);
+                        }
+                        //then add role checked in Groups
                         var listAppUserGroup = new List<ApplicationUserGroup>();
                         foreach (var group in applicationUserViewModel.Groups)
                         {
