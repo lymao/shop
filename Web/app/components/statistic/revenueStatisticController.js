@@ -36,7 +36,6 @@
 
                 $scope.labels = lables;
                 $scope.chartData = chartData;
-                $scope.chartData = chartData;
 
             }, function (error) {
                 notificationService.displayError('Không thể tải được dữ liệu.');
